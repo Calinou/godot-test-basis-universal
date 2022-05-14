@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://cn6jqss8breh3"]
+
+[ext_resource type="Texture2D" uid="uid://ksa3nvo532av" path="res://mud_cracked_dry_03_diff_2k.jpg" id="1_hi3o2"]
+[ext_resource type="Texture2D" uid="uid://csuswtgr6umjk" path="res://mud_cracked_dry_03_ao_2k.jpg" id="2_1cu1k"]
+[ext_resource type="Texture2D" uid="uid://n50nvtgxqr4f" path="res://mud_cracked_dry_03_nor_dx_2k.jpg" id="2_gvifs"]
+[ext_resource type="Texture2D" uid="uid://djp0ur3unnohg" path="res://mud_cracked_dry_03_disp_2k.jpg" id="3_8epp5"]
+[ext_resource type="Texture2D" uid="uid://bxwy4180w1kl0" path="res://mud_cracked_dry_03_rough_2k.jpg" id="3_v8xj1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ch4cm"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_aefty"]
+sky_material = SubResource( "ProceduralSkyMaterial_ch4cm" )
+
+[sub_resource type="Environment" id="Environment_5clrt"]
+background_mode = 2
+sky = SubResource( "Sky_aefty" )
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_imx0d"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_de4li"]
+albedo_texture = ExtResource( "1_hi3o2" )
+roughness_texture = ExtResource( "3_v8xj1" )
+normal_enabled = true
+normal_texture = ExtResource( "2_gvifs" )
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource( "2_1cu1k" )
+heightmap_enabled = true
+heightmap_deep_parallax = true
+heightmap_min_layers = 64
+heightmap_max_layers = 64
+heightmap_texture = ExtResource( "3_8epp5" )
+uv1_scale = Vector3(3, 2, 1)
+texture_filter = 5
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( "Environment_5clrt" )
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 250.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource( "BoxMesh_imx0d" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_de4li" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.881749, -0.237315, 0.407677, 0, 0.864237, 0.503085, -0.471719, -0.443595, 0.76204, 1.0695, 1.74241, 1.51822)
